@@ -2,7 +2,7 @@
 ## _Educational project **"Mesto"**_
 
 ### Layout of an adaptive single-page website, using the BEM methodology
-- [Mesto]()
+- [Mesto](https://galichanton.github.io/mesto/index.html)
 ### Tech
 the following technologies were used:
 
