@@ -1,17 +1,16 @@
-# Проект: Место
+# Yandex Practicum sprint №4
+## _Educational project **"Mesto"**_
 
-### Обзор
+### Layout of an adaptive single-page website, using the BEM methodology
+- [Mesto]()
+### Tech
+the following technologies were used:
 
-* Figma
-* Картинки
+- [Flexbox](https://developer.mozilla.org/ru/docs/Learn/CSS/CSS_layout/Flexbox) - layout using flexbox technology
+- [Grid Layout](https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout) - layout using grid technology
+- [Media queries](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries) - adaptive layout using media queries
+- [Java Script](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries) - logic of opening modal windows
 
-**Figma**
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+### Plans for further development:
+- Add more UI logic

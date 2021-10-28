@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <img src="./images/logo.svg" alt="Логотип сайта" class="logo">
+    </header>
+    <div class="main">
+      <section class="profile">
+        <div class="profile__avatar-wrapper">
+          <img src="./images/ava.jpg" alt="Аватар пользователя" class="profile__avatar">
+        </div>
+        <div class="profile__info">
+          <button type="button" class="profile__button_edit"><img src="./images/edit.svg" alt="карандаш"></button>
+          <p class="profile__name">Жак-Ив Кусто</p>
+          <p class="profile__about">Исследователь океана</p>
+        </div>
+        <button type="button" class="profile__button_add"><img src="./images/add.svg" alt="плюс"></button>
+      </section>
+      <ul class="cards">
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Baikal.jpg" alt="Байкал" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Байкал</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Dombai.jpg" alt="Домбай" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Домбай</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Gora-Elbrus-v-Rossii.jpg" alt="Эльбрус" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Эльбрус</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Kaliningrad.jpg" alt="Калининград" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Калининград</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Karelia.jpg" alt="Карелия" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Карелия</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <div class="card__container">
+            <img src="./images/Multinskie_ozera.jpg" alt="Мультинские озера" class="card__photo">
+          </div>
+          <div class="card__descr">
+            <h2 class="card__caption">Мультинские озера</h2>
+            <button type="button" class="card__like"></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <footer class="footer">
+      <p class="footer__copyright">© 2021 Mesto Russia</p>
+    </footer>
+    <div class="popup" id="user-popup">
+      <form class="popup__container" id="user-form" novalidate=""><button type="reset"
+          class="button popup__button popup__button_close"></button>
+        <fieldset class="popup__input-container">
+          <legend class="popup__heading">Редактировать профиль</legend>
+          <label for="name" class="popup__field">
+            <input class="popup__input" id="name" name="name" placeholder="Имя">
+          </label>
+          <label for="about" class="popup__field">
+            <input class="popup__input" id="about" name="about" placeholder="О себе">
+          </label>
+        </fieldset>
+        <button type="submit" class="popup__button popup__button_submit">Сохранить</button>
+      </form>
+    </div>
+    <script src="./main.js"></script>
+  </div>
+</body>
+</html>

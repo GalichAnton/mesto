@@ -1,0 +1,24 @@
+.popup {
+  width: 100%;
+  height: 100%;
+  display: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .5);
+  position: absolute;
+}
+
+.fadeIn {
+  animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

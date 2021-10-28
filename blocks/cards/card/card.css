@@ -1,0 +1,30 @@
+.card {
+  width: 100%;
+  min-height: 361px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width:980px) {
+  .card {
+    min-height: 310px;
+  }
+}
+
+@media screen and (max-width:425px) {
+  .card {
+    min-height: 361px;
+  }
+}

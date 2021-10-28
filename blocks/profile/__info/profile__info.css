@@ -1,0 +1,25 @@
+.profile__info {
+  max-width: 45%;
+  display: grid;
+  grid-template-columns: -webkit-max-content -webkit-min-content;
+  grid-template-columns: max-content min-content;
+  grid-template-rows: repeat(2, -webkit-min-content);
+  grid-template-rows: repeat(2, min-content);
+  grid-column-gap: 18px;
+  grid-row-gap: 16px;
+  align-items: center;
+}
+
+@media screen and (max-width:980px) {
+  .profile__info {
+    grid-column-gap: 10px;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .profile__info {
+    max-width: 100%;
+    grid-column-gap: 10px;
+    grid-row-gap: 14px;
+  }
+}
