@@ -1,5 +1,5 @@
 const popUp = document.getElementById("user-popup")
-const popBtn = document.querySelector(".profile__button_edit")
+const popBtn = document.querySelector(".profile__edit")
 const closeBtn = document.querySelector(".popup__button_close")
 // Находим форму в DOM
 let formElement = document.querySelector(".popup__container")
