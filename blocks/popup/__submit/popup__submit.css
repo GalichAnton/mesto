@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:550px) {
   .popup__submit {
     width: 238px;
     height: 46px;

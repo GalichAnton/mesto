@@ -2,7 +2,7 @@ const popUp = document.getElementById("user-popup")
 const popBtn = document.querySelector(".profile__edit")
 const closeBtn = document.querySelector(".popup__close")
 // Находим форму в DOM
-let formElement = document.querySelector(".popup__container")
+let formElement = document.querySelector(".popup__form")
 let nameInput = formElement.querySelector("#name")
 let aboutInput = formElement.querySelector("#about")
 let profileName = document.querySelector(".profile__name")

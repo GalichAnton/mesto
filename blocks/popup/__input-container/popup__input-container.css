@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:550px) {
   .popup__input-container {
     width: 238px;
   }
