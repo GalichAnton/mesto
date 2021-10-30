@@ -32,7 +32,6 @@
 /*===Popup=====================================*/
 
 @import url('../blocks/popup/popup.css');
-@import url('../blocks/form-container/form-container.css');
 @import url('../blocks/popup/__close/popup__close.css');
 @import url('../blocks/popup/__submit/popup__submit.css');
 @import url('../blocks/popup/__form/popup__form.css');
