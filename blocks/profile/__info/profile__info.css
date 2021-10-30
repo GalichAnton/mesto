@@ -20,6 +20,7 @@
   .profile__info {
     max-width: 100%;
     grid-column-gap: 10px;
-    grid-row-gap: 14px;
+    grid-row-gap: 8px;
+    margin: 0 35px 0 65px;
   }
 }

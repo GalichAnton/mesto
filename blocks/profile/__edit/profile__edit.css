@@ -6,6 +6,9 @@
   padding: 0;
   transition: opacity .7s ease;
   background-color: #000;
+  background-image: url('../../../images/edit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -26,6 +29,6 @@
 }
 
 .profile__edit:hover {
-  opacity: .5;
+  opacity: .6;
   cursor: pointer;
 }

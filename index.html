@@ -14,94 +14,99 @@
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип сайта" class="logo">
     </header>
-    <div class="main">
+    <main class="main">
       <section class="profile">
         <div class="profile__avatar-wrapper">
           <img src="./images/ava.jpg" alt="Аватар пользователя" class="profile__avatar">
         </div>
         <div class="profile__info">
-          <button type="button" class="profile__edit"><img src="./images/edit.svg" alt="карандаш"></button>
-          <p class="profile__name">Жак-Ив Кусто</p>
+          <button type="button" class="profile__edit"></button>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__about">Исследователь океана</p>
         </div>
-        <button type="button" class="profile__add"><img src="./images/add.svg" alt="плюс"></button>
+        <button type="button" class="profile__add"></button>
       </section>
-      <ul class="cards">
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Baikal.jpg" alt="Байкал" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Байкал</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Dombai.jpg" alt="Домбай" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Домбай</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Gora-Elbrus-v-Rossii.jpg" alt="Эльбрус" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Эльбрус</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Kaliningrad.jpg" alt="Калининград" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Калининград</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Karelia.jpg" alt="Карелия" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Карелия</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-        <li class="card">
-          <div class="card__container">
-            <img src="./images/Multinskie_ozera.jpg" alt="Мультинские озера" class="card__photo">
-          </div>
-          <div class="card__descr">
-            <h2 class="card__caption">Мультинские озера</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </li>
-      </ul>
-    </div>
+      <section class="places">
+        <ul class="cards">
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/baikal.jpg" alt="Байкал" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Байкал</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/dombai.jpg" alt="Домбай" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Домбай</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/gora-elbrus-v-rossii.jpg" alt="Эльбрус" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Эльбрус</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/kaliningrad.jpg" alt="Калининград" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Калининград</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/karelia.jpg" alt="Карелия" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Карелия</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__container">
+              <img src="./images/multinskie_ozera.jpg" alt="Мультинские озера" class="card__photo">
+            </div>
+            <div class="card__descr">
+              <h2 class="card__caption">Мультинские озера</h2>
+              <button aria-label="Понравилось" type="button" class="card__like"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
     <footer class="footer">
-      <p class="footer__copyright">© 2021 Mesto Russia</p>
+      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup" id="user-popup">
-      <form class="popup__container" id="user-form" novalidate=""><button type="reset"
-          class="button popup__button popup__button_close"></button>
-        <fieldset class="popup__input-container">
-          <legend class="popup__heading">Редактировать профиль</legend>
-          <label for="name" class="popup__field">
-            <input class="popup__input" id="name" name="name" placeholder="Имя">
-          </label>
-          <label for="about" class="popup__field">
-            <input class="popup__input" id="about" name="about" placeholder="О себе">
-          </label>
-        </fieldset>
-        <button type="submit" class="popup__button popup__button_submit">Сохранить</button>
-      </form>
+      <div class="form-container">
+        <button type="button" class="popup__close"></button>
+        <form class="popup__container" id="user-form" name="profileEdit" novalidate="">
+          <fieldset class="popup__input-container">
+            <legend class="popup__heading">Редактировать профиль</legend>
+            <label for="name" class="popup__field">
+              <input class="popup__input" id="name" name="name" required placeholder="Имя">
+            </label>
+            <label for="about" class="popup__field">
+              <input class="popup__input" id="about" name="about" required placeholder="О себе">
+            </label>
+          </fieldset>
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </form>
+      </div>
     </div>
-    <script src="./main.js"></script>
   </div>
+  <script src="./scripts/main.js"></script>
 </body>
+
 </html>

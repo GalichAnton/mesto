@@ -7,8 +7,12 @@
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  background-color: #000;
+  background-color: transparent;
   transition: opacity .7s ease;
+  background-image: url('../../../images/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
 }
 
 @media screen and (max-width:980px) {
@@ -31,6 +35,6 @@
 }
 
 .profile__add:hover {
-  opacity: .5;
+  opacity: .6;
   cursor: pointer;
 }
