@@ -1,4 +1,3 @@
-/*====Извиняюсь за невнимательность ;(=========*/
 @import url('../vendor/normalize.css');
 @import url('../fonts/fonts.css');
 @import url('../blocks/main/main.css');
@@ -26,6 +25,7 @@
 @import url('../blocks/card/__photo/card__photo.css');
 @import url('../blocks/card/__like/card__like.css');
 @import url('../blocks/card/__descr/card__descr.css');
+@import url('../blocks/card/__delete/card__delete.css');
 /*===Footer=====================================*/
 
 @import url('../blocks/footer/footer.css');
@@ -42,3 +42,9 @@
 @import url('../blocks/popup/__input-container/popup__input-container.css');
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/_closed/popup_closed.css');
+
+/*===Photo=====================================*/
+@import url('../blocks/photo/__caption/photo__caption.css');
+@import url('../blocks/photo/__figure/photo__figure.css');
+@import url('../blocks/photo/__img/photo__img.css');
