@@ -3,10 +3,10 @@ const popBtn = document.querySelector('.profile__edit')
 const closeBtn = document.querySelectorAll('.popup__close')
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form')
-let nameInput = formElement.querySelector('#name')
-let aboutInput = formElement.querySelector('#about')
-let profileName = document.querySelector('.profile__name')
-let profileAbout = document.querySelector('.profile__about')
+const nameInput = formElement.querySelector('#name')
+const aboutInput = formElement.querySelector('#about')
+const profileName = document.querySelector('.profile__name')
+const profileAbout = document.querySelector('.profile__about')
 //Открытие попапа создание карточки
 const createFormElement = document.querySelector('#create-form')
 const placeNameInput = createFormElement.querySelector('#placeName')
@@ -59,7 +59,7 @@ popBtn.addEventListener('click', () => {
 })
 
 
-//Sprint #4
+//Sprint #5
 //Инициализация карточек
 const initialCards = [
   {
@@ -93,7 +93,6 @@ function createCard(name, src) {
   cardsElem.querySelector('.card__photo').src = src
   cardsElem.querySelector('.card__photo').alt = name
   cardsElem.querySelector('.card__caption').textContent = name
-  cardsContainer.prepend(cardsElem)
   cardsElem.addEventListener('click', (e) => {
     className = e.target.classList.item(0)
     switch (className) {
@@ -108,9 +107,16 @@ function createCard(name, src) {
         break
     }
   })
+  return cardsElem
 }
+
+function cardAppend(card) {
+  cardsContainer.prepend(card)
+}
+
 initialCards.forEach(item => {
-  createCard(item.name, item.link)
+  const card = createCard(item.name, item.link)
+  cardAppend(card)
 })
 
 //Добавление карточки
@@ -122,7 +128,8 @@ function addNewCard(e) {
   // Получите значение полей из свойства value
   const name = placeNameInput.value
   const src = srcInput.value
-  createCard(name, src)
+  const card = createCard(name, src)
+  cardAppend(card)
   closePopup(popupAddCard)
   placeNameInput.value = ''
   srcInput.value = ''
@@ -142,9 +149,3 @@ const openImgPopup = (img) => {
   imgCaption.textContent = img.getAttribute('alt')
   openPopup(photoPopup)
 }
-
-
-
-
-
-
