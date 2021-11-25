@@ -1,8 +1,9 @@
+const popUps = document.querySelectorAll('.popup')
 const userPopUp = document.getElementById('user-popup')
 const popBtn = document.querySelector('.profile__edit')
 const closeBtn = document.querySelectorAll('.popup__close')
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form')
+const formElement = document.querySelector('#user-form')
 const nameInput = formElement.querySelector('#name')
 const aboutInput = formElement.querySelector('#about')
 const profileName = document.querySelector('.profile__name')
@@ -21,9 +22,13 @@ const imgCaption = document.querySelector('.photo__caption')
 const btnsLike = document.querySelectorAll('.card__like')
 const deleteBtns = document.querySelectorAll('.card__delete')
 
+
+nameInput.value = profileName.textContent
+aboutInput.value = profileAbout.textContent
 const openPopup = (popup) => {
   popup.classList.remove('popup_closed')
   popup.classList.add('popup_opened')
+  closeByEsc(popup)
 }
 
 const closePopup = (popup) => {
@@ -36,6 +41,7 @@ closeBtn.forEach(i => {
     closePopup(e.target.parentNode.parentNode)
   })
 })
+
 
 function handleFormSubmit(evt) {
   evt.preventDefault()
@@ -54,8 +60,6 @@ function handleFormSubmit(evt) {
 formElement.addEventListener('submit', handleFormSubmit)
 popBtn.addEventListener('click', () => {
   openPopup(userPopUp)
-  nameInput.value = profileName.textContent
-  aboutInput.value = profileAbout.textContent
 })
 
 
@@ -87,6 +91,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]
+
 function createCard(name, src) {
   const cardTemplate = document.querySelector('#card').content
   const cardsElem = cardTemplate.querySelector('.card').cloneNode(true)
@@ -110,26 +115,31 @@ function createCard(name, src) {
   return cardsElem
 }
 
-function cardAppend(card) {
-  cardsContainer.prepend(card)
+function cardAppend(card, method) {
+  if (method === 'append') {
+    cardsContainer.append(card)
+  } else if (method === 'prepend') {
+    cardsContainer.prepend(card)
+  }
 }
 
 initialCards.forEach(item => {
   const card = createCard(item.name, item.link)
-  cardAppend(card)
+  cardAppend(card, 'append')
 })
 
 //Добавление карточки
 popCreateBtn.addEventListener('click', () => {
   openPopup(popupAddCard)
 })
+
 function addNewCard(e) {
   e.preventDefault()
   // Получите значение полей из свойства value
   const name = placeNameInput.value
   const src = srcInput.value
   const card = createCard(name, src)
-  cardAppend(card)
+  cardAppend(card, 'prepend')
   closePopup(popupAddCard)
   placeNameInput.value = ''
   srcInput.value = ''
@@ -149,3 +159,22 @@ const openImgPopup = (img) => {
   imgCaption.textContent = img.getAttribute('alt')
   openPopup(photoPopup)
 }
+
+//Sprint #6
+//Закрытие попапов по Esc
+function closeByEsc(popup) {
+  document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    if (e.key === 'Escape') {
+      closePopup(popup)
+    }
+  })
+}
+//Закрытие попапов по нажатию на оверлей
+popUps.forEach((popup) => {
+  popup.addEventListener('mousedown', (e) => {
+    if (e.target === popup) {
+      closePopup(e.target)
+    }
+  })
+})
