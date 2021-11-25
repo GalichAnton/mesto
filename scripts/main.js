@@ -28,12 +28,13 @@ aboutInput.value = profileAbout.textContent
 const openPopup = (popup) => {
   popup.classList.remove('popup_closed')
   popup.classList.add('popup_opened')
-  closeByEsc(popup)
+  document.addEventListener('keydown', closeByEsc)
 }
 
 const closePopup = (popup) => {
   popup.classList.add('popup_closed')
   popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closeByEsc)
 }
 
 closeBtn.forEach(i => {
@@ -143,6 +144,8 @@ function addNewCard(e) {
   closePopup(popupAddCard)
   placeNameInput.value = ''
   srcInput.value = ''
+  createFormElement.querySelector('.popup__submit').classList.add('popup__submit_disabled')
+  createFormElement.querySelector('.popup__submit').setAttribute('disabled', true)
 }
 createFormElement.addEventListener('submit', addNewCard)
 //Лайк карточки
@@ -162,13 +165,11 @@ const openImgPopup = (img) => {
 
 //Sprint #6
 //Закрытие попапов по Esc
-function closeByEsc(popup) {
-  document.addEventListener('keydown', (e) => {
-    console.log(e.key)
-    if (e.key === 'Escape') {
-      closePopup(popup)
-    }
-  })
+function closeByEsc(e) {
+  const openPopup = document.querySelector('.popup_opened')
+  if (e.key === 'Escape') {
+    closePopup(openPopup)
+  }
 }
 //Закрытие попапов по нажатию на оверлей
 popUps.forEach((popup) => {
