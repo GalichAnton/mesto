@@ -23,8 +23,6 @@ const btnsLike = document.querySelectorAll('.card__like')
 const deleteBtns = document.querySelectorAll('.card__delete')
 
 
-nameInput.value = profileName.textContent
-aboutInput.value = profileAbout.textContent
 const openPopup = (popup) => {
   popup.classList.remove('popup_closed')
   popup.classList.add('popup_opened')
@@ -53,14 +51,16 @@ function handleFormSubmit(evt) {
   profileName.textContent = name
   profileAbout.textContent = about
   closePopup(userPopUp)
-  nameInput.value = ''
-  aboutInput.value = ''
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit)
 popBtn.addEventListener('click', () => {
   openPopup(userPopUp)
+  nameInput.value = profileName.textContent
+  aboutInput.value = profileAbout.textContent
+  formElement.querySelector('.popup__submit').classList.remove('popup__submit_disabled')
+  formElement.querySelector('.popup__submit').removeAttribute('disabled')
 })
 
 
