@@ -1,3 +1,5 @@
+import { Card } from "./Card.js"
+import { FormValidator } from "./FormValidator.js"
 const popUps = document.querySelectorAll('.popup')
 const userPopUp = document.getElementById('user-popup')
 const popBtn = document.querySelector('.profile__edit')
@@ -19,8 +21,8 @@ const cardsContainer = document.querySelector('.cards')
 const photoPopup = document.querySelector('#image-popup')
 const imgContainer = document.querySelector('.photo__img')
 const imgCaption = document.querySelector('.photo__caption')
-const btnsLike = document.querySelectorAll('.card__like')
-const deleteBtns = document.querySelectorAll('.card__delete')
+
+
 
 
 const openPopup = (popup) => {
@@ -63,7 +65,6 @@ popBtn.addEventListener('click', () => {
   formElement.querySelector('.popup__submit').removeAttribute('disabled')
 })
 
-
 //Sprint #5
 //Инициализация карточек
 const initialCards = [
@@ -93,29 +94,6 @@ const initialCards = [
   }
 ]
 
-function createCard(name, src) {
-  const cardTemplate = document.querySelector('#card').content
-  const cardsElem = cardTemplate.querySelector('.card').cloneNode(true)
-  cardsElem.querySelector('.card__photo').src = src
-  cardsElem.querySelector('.card__photo').alt = name
-  cardsElem.querySelector('.card__caption').textContent = name
-  cardsElem.addEventListener('click', (e) => {
-    className = e.target.classList.item(0)
-    switch (className) {
-      case 'card__like':
-        toggleLike(e.target)
-        break
-      case 'card__delete':
-        deleteCard(e.target)
-        break
-      case 'card__photo':
-        openImgPopup(e.target)
-        break
-    }
-  })
-  return cardsElem
-}
-
 function cardAppend(card, method) {
   if (method === 'append') {
     cardsContainer.append(card)
@@ -124,9 +102,17 @@ function cardAppend(card, method) {
   }
 }
 
+//Открытие попапа с картинкой
+const openImgPopup = (img) => {
+  imgContainer.setAttribute('src', img.getAttribute('src'))
+  imgCaption.textContent = img.getAttribute('alt')
+  openPopup(photoPopup)
+}
+
 initialCards.forEach(item => {
-  const card = createCard(item.name, item.link)
-  cardAppend(card, 'append')
+  const card = new Card(item, '#card', openImgPopup)
+  const newCard = card.createCard()
+  cardAppend(newCard, 'append')
 })
 
 //Добавление карточки
@@ -136,10 +122,8 @@ popCreateBtn.addEventListener('click', () => {
 
 function addNewCard(e) {
   e.preventDefault()
-  // Получите значение полей из свойства value
-  const name = placeNameInput.value
-  const src = srcInput.value
-  const card = createCard(name, src)
+  const data = {name:placeNameInput.value, link:srcInput.value}
+  const card = new Card(data,'#card',openImgPopup).createCard()
   cardAppend(card, 'prepend')
   closePopup(popupAddCard)
   placeNameInput.value = ''
@@ -148,20 +132,7 @@ function addNewCard(e) {
   createFormElement.querySelector('.popup__submit').setAttribute('disabled', true)
 }
 createFormElement.addEventListener('submit', addNewCard)
-//Лайк карточки
-const toggleLike = (btn) => {
-  btn.classList.toggle('card__like_liked')
-}
-//Удаление карточки
-const deleteCard = (btn) => {
-  btn.parentNode.remove()
-}
-//Открытие попапа с картинкой
-const openImgPopup = (img) => {
-  imgContainer.setAttribute('src', img.getAttribute('src'))
-  imgCaption.textContent = img.getAttribute('alt')
-  openPopup(photoPopup)
-}
+
 
 //Sprint #6
 //Закрытие попапов по Esc
@@ -179,3 +150,17 @@ popUps.forEach((popup) => {
     }
   })
 })
+
+
+const data = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
+
+const validateUserForm = new FormValidator(data,formElement)
+validateUserForm.enableValidation()
+const validateCreateForm = new FormValidator(data,createFormElement)
+validateCreateForm.enableValidation()
