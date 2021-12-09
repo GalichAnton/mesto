@@ -1,5 +1,6 @@
 import { Card } from "./Card.js"
 import { FormValidator } from "./FormValidator.js"
+import { initialCards } from "./data.js"
 const popUps = document.querySelectorAll('.popup')
 const userPopUp = document.getElementById('user-popup')
 const popBtn = document.querySelector('.profile__edit')
@@ -19,8 +20,7 @@ const popCreateBtn = document.querySelector('.profile__add')
 const cardsContainer = document.querySelector('.cards')
 //Попап изображения
 const photoPopup = document.querySelector('#image-popup')
-const imgContainer = document.querySelector('.photo__img')
-const imgCaption = document.querySelector('.photo__caption')
+
 
 
 
@@ -67,32 +67,7 @@ popBtn.addEventListener('click', () => {
 
 //Sprint #5
 //Инициализация карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]
+
 
 function cardAppend(card, method) {
   if (method === 'append') {
@@ -102,16 +77,13 @@ function cardAppend(card, method) {
   }
 }
 
-//Открытие попапа с картинкой
-const openImgPopup = (img) => {
-  imgContainer.setAttribute('src', img.getAttribute('src'))
-  imgCaption.textContent = img.getAttribute('alt')
-  openPopup(photoPopup)
+const createNewCard = (data) => {
+  const card = new Card(data, '#card', openPopup, photoPopup)
+  return card.createCard()
 }
 
 initialCards.forEach(item => {
-  const card = new Card(item, '#card', openImgPopup)
-  const newCard = card.createCard()
+  const newCard = createNewCard(item)
   cardAppend(newCard, 'append')
 })
 
@@ -122,9 +94,9 @@ popCreateBtn.addEventListener('click', () => {
 
 function addNewCard(e) {
   e.preventDefault()
-  const data = {name:placeNameInput.value, link:srcInput.value}
-  const card = new Card(data,'#card',openImgPopup).createCard()
-  cardAppend(card, 'prepend')
+  const data = { name: placeNameInput.value, link: srcInput.value }
+  const newCard = createNewCard(data)
+  cardAppend(newCard, 'prepend')
   closePopup(popupAddCard)
   placeNameInput.value = ''
   srcInput.value = ''
@@ -157,10 +129,10 @@ const data = {
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+  errorClass: 'popup__input-error_active',
 }
 
-const validateUserForm = new FormValidator(data,formElement)
+const validateUserForm = new FormValidator(data, formElement)
 validateUserForm.enableValidation()
-const validateCreateForm = new FormValidator(data,createFormElement)
+const validateCreateForm = new FormValidator(data, createFormElement)
 validateCreateForm.enableValidation()

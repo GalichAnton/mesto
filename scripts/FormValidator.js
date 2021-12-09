@@ -6,6 +6,8 @@ export class FormValidator {
     this._inactiveButtonClass = data.inactiveButtonClass
     this._inputErrorClass = data.inputErrorClass
     this._errorClass = data.errorClass
+    this._inputList = Array.from(this._formElement.querySelectorAll('.popup__input'))
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
   }
 
   //Определяем элемент с текстом ошибки
@@ -30,26 +32,26 @@ export class FormValidator {
   }
 
   //Найдем невалидное поле
-  _findInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _findInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid
     })
   }
 
   //Установим состояние кнопки
-  _setButtonState(buttonElement, invalidInput) {
-    if (invalidInput) {
-      buttonElement.setAttribute('disabled', true)
-      buttonElement.classList.add(this._inactiveButtonClass)
+  _setButtonState() {
+    if (this._findInvalidInput()) {
+      this._buttonElement.setAttribute('disabled', true)
+      this._buttonElement.classList.add(this._inactiveButtonClass)
     } else {
-      buttonElement.disabled = false
-      buttonElement.classList.remove(this._inactiveButtonClass)
+      this._buttonElement.disabled = false
+      this._buttonElement.classList.remove(this._inactiveButtonClass)
     }
   }
 
   //Переключим состояние кнопки
-  _toggleButtonState(inputList, buttonElement) {
-    this._setButtonState(buttonElement, this._findInvalidInput(inputList))
+  _toggleButtonState() {
+    this._setButtonState()
   }
 
   //Проверим валидность поля
@@ -63,17 +65,11 @@ export class FormValidator {
 
   //Повесим слушатели
   _setEventListeners() {
-    const inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    )
-    const buttonElement = this._formElement.querySelector(
-      this._submitButtonSelector
-    )
-    this._toggleButtonState(inputList, buttonElement)
-    inputList.forEach((inputElement) => {
+    this._toggleButtonState(this._inputList, this._buttonElement)
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement)
-        this._toggleButtonState(inputList, buttonElement)
+        this._toggleButtonState(this._inputList, this._buttonElement)
       })
     })
   }

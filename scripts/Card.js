@@ -1,9 +1,10 @@
 export class Card {
-  constructor(data, cardTemplate, handleCardClick) {
-    this._cardSelector = cardTemplate
+  constructor(data, cardTemplateSelector, openPopup, photoPopup) {
+    this._cardSelector = cardTemplateSelector
     this._name = data.name
     this._src = data.link
-    this._handleCardClick = handleCardClick;
+    this._openPopup = openPopup
+    this._photoPopup = photoPopup
   }
   //Добавляем разметку карточки
   _getCardTemplate() {
@@ -12,7 +13,6 @@ export class Card {
       .content.querySelector('.card')
       .cloneNode(true);
 
-    this._cardItem = cardElement;
 
     return cardElement;
   }
@@ -37,13 +37,13 @@ export class Card {
       });
     this._cardItem
       .querySelector('.card__delete')
-      .addEventListener('click', (evt) => {
-        this._handleCardDelete(evt);
+      .addEventListener('click', () => {
+        this._handleCardDelete();
       });
     this._cardItem
       .querySelector('.card__photo')
       .addEventListener('click', (evt) => {
-        this._handleCardClick(evt.target);
+        this._handleOpenImgPopup(evt.target);
       });
   }
 
@@ -55,10 +55,14 @@ export class Card {
   }
 
   //Удаление
-  _handleCardDelete(evt) {
-    const cardToDelete = evt.target.closest('.card');
+  _handleCardDelete() {
+    const cardToDelete = this._cardItem;
     cardToDelete.remove();
   }
 
-  
+  _handleOpenImgPopup = (img) => {
+    document.querySelector('.photo__img').setAttribute('src', img.getAttribute('src'))
+    document.querySelector('.photo__caption').textContent = img.getAttribute('alt')
+    this._openPopup(this._photoPopup)
+  }
 }
