@@ -6,7 +6,7 @@ export class FormValidator {
     this._inactiveButtonClass = data.inactiveButtonClass
     this._inputErrorClass = data.inputErrorClass
     this._errorClass = data.errorClass
-    this._inputList = Array.from(this._formElement.querySelectorAll('.popup__input'))
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector))
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
   }
 
@@ -49,10 +49,6 @@ export class FormValidator {
     }
   }
 
-  //Переключим состояние кнопки
-  _toggleButtonState() {
-    this._setButtonState()
-  }
 
   //Проверим валидность поля
   _checkInputValidity(inputElement) {
@@ -65,13 +61,23 @@ export class FormValidator {
 
   //Повесим слушатели
   _setEventListeners() {
-    this._toggleButtonState(this._inputList, this._buttonElement)
+    this._setButtonState()
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement)
-        this._toggleButtonState(this._inputList, this._buttonElement)
+        this._setButtonState()
       })
     })
+  }
+
+  buttonToggleDisable(flag) {
+    if (flag) {
+      this._formElement.querySelector(this._submitButtonSelector).classList.remove(this._inactiveButtonClass)
+      this._formElement.querySelector(this._submitButtonSelector).removeAttribute('disabled')
+    } else {
+      this._formElement.querySelector(this._submitButtonSelector).classList.add(this._inactiveButtonClass)
+      this._formElement.querySelector(this._submitButtonSelector).setAttribute('disabled', true)
+    }
   }
 
   //Объявим функицю валидации

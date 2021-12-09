@@ -56,8 +56,7 @@ export class Card {
 
   //Удаление
   _handleCardDelete() {
-    const cardToDelete = this._cardItem;
-    cardToDelete.remove();
+    this._cardItem.remove();
   }
 
   _handleOpenImgPopup = (img) => {

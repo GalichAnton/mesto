@@ -61,8 +61,7 @@ popBtn.addEventListener('click', () => {
   openPopup(userPopUp)
   nameInput.value = profileName.textContent
   aboutInput.value = profileAbout.textContent
-  formElement.querySelector('.popup__submit').classList.remove('popup__submit_disabled')
-  formElement.querySelector('.popup__submit').removeAttribute('disabled')
+  validateUserForm.buttonToggleDisable(true)
 })
 
 //Sprint #5
@@ -100,8 +99,7 @@ function addNewCard(e) {
   closePopup(popupAddCard)
   placeNameInput.value = ''
   srcInput.value = ''
-  createFormElement.querySelector('.popup__submit').classList.add('popup__submit_disabled')
-  createFormElement.querySelector('.popup__submit').setAttribute('disabled', true)
+  validateCreateForm.buttonToggleDisable(false)
 }
 createFormElement.addEventListener('submit', addNewCard)
 
