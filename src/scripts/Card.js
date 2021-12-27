@@ -1,10 +1,10 @@
 export class Card {
-  constructor(data, cardTemplateSelector, openPopup, photoPopup) {
+  constructor(data, { cardTemplateSelector, handleCardClick }) {
     this._cardSelector = cardTemplateSelector
+    this._handleCardClick = handleCardClick;
     this._name = data.name
     this._src = data.link
-    this._openPopup = openPopup
-    this._photoPopup = photoPopup
+
   }
   //Добавляем разметку карточки
   _getCardTemplate() {
@@ -12,8 +12,6 @@ export class Card {
       .querySelector(this._cardSelector)
       .content.querySelector('.card')
       .cloneNode(true);
-
-
     return cardElement;
   }
   //Создадим карточку
@@ -24,7 +22,6 @@ export class Card {
     cardPhoto.src = this._src;
     cardPhoto.alt = this._name;
     this._cardItem.querySelector('.card__caption').textContent = this._name;
-
     return this._cardItem;
   }
 
@@ -42,8 +39,8 @@ export class Card {
       });
     this._cardItem
       .querySelector('.card__photo')
-      .addEventListener('click', (evt) => {
-        this._handleOpenImgPopup(evt.target);
+      .addEventListener('click', (e) => {
+        this._handleCardClick(e);
       });
   }
 
@@ -59,9 +56,4 @@ export class Card {
     this._cardItem.remove();
   }
 
-  _handleOpenImgPopup = (img) => {
-    document.querySelector('.photo__img').setAttribute('src', img.getAttribute('src'))
-    document.querySelector('.photo__caption').textContent = img.getAttribute('alt')
-    this._openPopup(this._photoPopup)
-  }
 }

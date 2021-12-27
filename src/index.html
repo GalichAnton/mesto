@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
@@ -13,13 +12,13 @@
   <div class="page">
     <!------------------- Header ----------------------------->
     <header class="header">
-      <img src="./images/logo.svg" alt="Логотип сайта" class="logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип сайта" class="logo">
     </header>
     <main class="main">
       <!------------------- Profile ----------------------------->
       <section class="profile">
         <div class="profile__avatar-wrapper">
-          <img src="./images/ava.jpg" alt="Аватар пользователя" class="profile__avatar">
+          <img src="<%=require('./images/ava.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
         </div>
         <div class="profile__info">
           <button type="button" class="profile__edit"></button>
@@ -73,7 +72,7 @@
               <span class="popup__input-error" id="placeName-error"></span>
             </label>
             <label for="src" class="popup__field">
-              <input class="popup__input" id="src" name="about" type='url' required placeholder="Ссылка на картинку">
+              <input class="popup__input" id="src" name="link" type='url' required placeholder="Ссылка на картинку">
               <span class="popup__input-error" id="src-error"></span>
             </label>
           </fieldset>
@@ -104,10 +103,6 @@
     </li>
   </template>
   <!------------------- Scripts ----------------------------->
-  <script  type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script> 
-  <script type="module" src="./scripts/index.js"></script>
-
 </body>
 
 </html>
