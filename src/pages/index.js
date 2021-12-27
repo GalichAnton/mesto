@@ -1,26 +1,31 @@
-import { Card } from "./Card.js"
-import { FormValidator } from "./FormValidator.js"
-import { initialCards, formsData, popCreateBtn, editProfileBtn, createFormElement,formElement } from "../constants/data"
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
+import { Card } from "../scripts/Card.js"
+import { FormValidator } from "../scripts/FormValidator.js"
+import { initialCards, formsData, popCreateBtn, editProfileBtn, createFormElement,formElement,nameInput, aboutInput } from "../constants/data"
+import PopupWithImage from '../scripts/PopupWithImage.js';
+import PopupWithForm from '../scripts/PopupWithForm.js';
+import UserInfo from '../scripts/UserInfo.js';
+import Section from '../scripts/Section.js';
 import '../pages/index.css'
 
 //Создаем экземпляра класса PopupWithImage
-const popupWithImage = new PopupWithImage('#image-popup');
+const popupWithImage = new PopupWithImage('#image-popup','.photo__img','.photo__caption');
+popupWithImage.setEventListeners()
+
+function initCard(item) {
+  const card = new Card(item, {
+    cardTemplateSelector: '#card',
+    handleCardClick: (name,src) => {
+      popupWithImage.open(name,src);
+    },
+  });
+  return card.createCard();
+} 
 //Создаем экземпляр класса Section для карточек
 const cardList = new Section(
   {
     data: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, {
-        cardTemplateSelector: '#card',
-        handleCardClick: (e) => {
-          popupWithImage.open(e);
-        },
-      });
-      const cardElement = card.createCard();
+      const cardElement = initCard(cardItem)
       cardList.addItem(cardElement, 'append');
     },
   },
@@ -42,43 +47,35 @@ const popupWithUserForm = new PopupWithForm('#user-popup', {
     popupWithUserForm.close();
   },
   setInputValues: () => {
-    const formElement = document.querySelector('#user-form');
-    formElement.querySelector('#name').value = userInfo.getUserInfo().name;
-    formElement.querySelector('#about').value = userInfo.getUserInfo().about;
+    const {name, about} = userInfo.getUserInfo()
+    nameInput.value = name
+    aboutInput.value = about
   },
 });
-
+popupWithUserForm.setEventListeners()
 //Открываем userPopup
 editProfileBtn.addEventListener('click', () => {
   popupWithUserForm.open();
-  validateUserForm.buttonToggleDisable(true)
+  validateUserForm.setButtonState(true)
 });
 
 
 //Создаем экземпляр класса PopupWithForm для photoPopup
 const popupCreateCardForm = new PopupWithForm('#create-popup', {
   handleFormSubmit: (photoData) => {
-    let newCard = new Card(photoData, {
-      cardTemplateSelector: '#card',
-      handleCardClick: (e) => {
-        popupWithImage.open(e);
-      },
-    });
-    let newCardElement = newCard.createCard();
+    const newCardElement = initCard(photoData)
     cardList.addItem(newCardElement, 'prepend');
     popupCreateCardForm.close();
   },
   setInputValues: () => {
-    const formElement = document.querySelector('#create-form');
-    formElement.elements.name.value = '';
-    formElement.elements.link.value = '';
+    
   },
 });
-
+popupCreateCardForm.setEventListeners()
 //Открываем photoPopup
 popCreateBtn.addEventListener('click', () => {
   popupCreateCardForm.open();
-  validateCreateForm.buttonToggleDisable(false)
+  validateCreateForm.setButtonState(false)
 });
 
 //Создаем экземпляр класса FormValidator для каждой формы и включить валидацию

@@ -40,7 +40,7 @@ export class Card {
     this._cardItem
       .querySelector('.card__photo')
       .addEventListener('click', (e) => {
-        this._handleCardClick(e);
+        this._handleCardClick(this._name, this._src);
       });
   }
 

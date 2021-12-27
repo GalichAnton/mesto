@@ -39,7 +39,7 @@ export class FormValidator {
   }
 
   //Установим состояние кнопки
-  _setButtonState() {
+  setButtonState() {
     if (this._findInvalidInput()) {
       this._buttonElement.setAttribute('disabled', true)
       this._buttonElement.classList.add(this._inactiveButtonClass)
@@ -61,24 +61,16 @@ export class FormValidator {
 
   //Повесим слушатели
   _setEventListeners() {
-    this._setButtonState()
+    this.setButtonState()
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement)
-        this._setButtonState()
+        this.setButtonState()
       })
     })
   }
 
-  buttonToggleDisable(flag) {
-    if (flag) {
-      this._formElement.querySelector(this._submitButtonSelector).classList.remove(this._inactiveButtonClass)
-      this._formElement.querySelector(this._submitButtonSelector).removeAttribute('disabled')
-    } else {
-      this._formElement.querySelector(this._submitButtonSelector).classList.add(this._inactiveButtonClass)
-      this._formElement.querySelector(this._submitButtonSelector).setAttribute('disabled', true)
-    }
-  }
+
 
   //Объявим функицю валидации
   enableValidation() {
