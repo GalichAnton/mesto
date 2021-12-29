@@ -12,20 +12,6 @@ export default class PopupWithForm extends Popup {
   open() {
     super.open();
     this._setInputValues();
-    this._setDefaultErrorState();
-  }
-
-  _setDefaultErrorState() {
-    this._inputList.forEach((inputElement) => {
-      if (inputElement.matches('.popup__input_type_error')) {
-        const errorElement = this._formElement.querySelector(
-          `#${inputElement.id}-error`
-        );
-        inputElement.classList.remove('popup__input_type_error');
-        errorElement.classList.remove('popup__input-error_active');
-        errorElement.textContent = '';
-      }
-    });
   }
 
   setEventListeners() {

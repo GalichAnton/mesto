@@ -1,3 +1,4 @@
+//Извините пропустил в первый раз 
 import { Card } from "../scripts/Card.js"
 import { FormValidator } from "../scripts/FormValidator.js"
 import { initialCards, formsData, popCreateBtn, editProfileBtn, createFormElement,formElement,nameInput, aboutInput } from "../constants/data"
@@ -56,6 +57,7 @@ popupWithUserForm.setEventListeners()
 //Открываем userPopup
 editProfileBtn.addEventListener('click', () => {
   popupWithUserForm.open();
+  validateUserForm.resetValidationErrors() 
   validateUserForm.setButtonState(true)
 });
 
@@ -75,6 +77,7 @@ popupCreateCardForm.setEventListeners()
 //Открываем photoPopup
 popCreateBtn.addEventListener('click', () => {
   popupCreateCardForm.open();
+  validateCreateForm.resetValidationErrors() 
   validateCreateForm.setButtonState(false)
 });
 
