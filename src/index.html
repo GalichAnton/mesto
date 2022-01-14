@@ -18,12 +18,15 @@
       <!------------------- Profile ----------------------------->
       <section class="profile">
         <div class="profile__avatar-wrapper">
-          <img src="<%=require('./images/ava.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
+          <div class="profile__avatar-overlay">
+            <img src="" alt="Аватар пользователя" class="profile__avatar">
+            <button class="profile__avatar-change"></button>
+          </div>
         </div>
         <div class="profile__info">
           <button type="button" class="profile__edit"></button>
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__about">Исследователь океана</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__about"></p>
         </div>
         <button type="button" class="profile__add"></button>
       </section>
@@ -68,7 +71,8 @@
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Новое место</legend>
             <label for="placeName" class="popup__field">
-              <input class="popup__input" id="placeName" name="name" minlength="2" maxlength="40" required placeholder="Название">
+              <input class="popup__input" id="placeName" name="name" minlength="2" maxlength="40" required
+                placeholder="Название">
               <span class="popup__input-error" id="placeName-error"></span>
             </label>
             <label for="src" class="popup__field">
@@ -89,6 +93,30 @@
       </figure>
     </div>
   </div>
+  <!--Попап delete-->
+  <div class="popup" id="delete-popup">
+    <form class="popup__container popup__container_type_delete">
+      <h2 class="popup__heading">Вы уверены?</h2>
+      <button type="button" class=" popup__close"></button>
+      <button type="submit" class="popup__submit">Да</button>
+    </form>
+  </div>
+  <!--Попап avatar-->
+  <div class="popup" id="avatar-popup">
+    <form class="popup__form popup__container popup__container_type_avatar" id="avatar-form" novalidate>
+      <button type="close" class="popup__close"></button>
+      <fieldset class="popup__input-container">
+        <legend class="popup__heading">Обновить аватар</legend>
+        <label for="url" class="popup__field">
+          <input class="popup__input" id="url" name="url" placeholder="Ссылка на аватар" required />
+          <span class="popup__input-error" id="url-error"></span>
+        </label>
+      </fieldset>
+      <button type="submit" class="popup__submit">
+        Сохранить
+      </button>
+    </form>
+  </div>
   <!------------------- Template ----------------------------->
   <template id="card">
     <li class="card">
@@ -98,7 +126,10 @@
       </div>
       <div class="card__descr">
         <h2 class="card__caption"></h2>
-        <button aria-label="Понравилось" type="button" class="card__like"></button>
+        <div class="card__like-block">
+          <button type="button" class="card__like button"></button>
+          <span class="card__counter">0</span>
+        </div>
       </div>
     </li>
   </template>

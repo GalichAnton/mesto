@@ -1,6 +1,5 @@
 export default class Secion {
-  constructor({ data, renderer }, containerSelector) {
-    this._renderedItems = data;
+  constructor({  renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
@@ -13,10 +12,14 @@ export default class Secion {
     }
   }
 
-  renderItems() {
-    this._renderedItems.forEach((item) => {
-      this._renderer(item);
-    });
+  //Отрисовать элементы
+  renderItems(api) {
+    api.then((data) => {
+        data.forEach((item) => {
+          this._renderer(item);
+        });
+      })
+      .catch((err) => console.log(`Что-то пошло не так: ${err}`));
   }
 }
 

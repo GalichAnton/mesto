@@ -8,6 +8,7 @@
   right: 15px;
   z-index: 1;
   border: none;
+  display:none;
 }
 
 .card__delete:hover {
