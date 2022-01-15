@@ -14,7 +14,7 @@ import {
 } from "../constants/data"
 import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
-import popupDeleteCard from '../scripts/PopupDeleteCard.js'
+import PopupDeleteCard from '../scripts/PopupDeleteCard.js'
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
 import {Api} from '../scripts/Api.js'
@@ -23,42 +23,18 @@ import '../pages/index.css'
 //Создаем экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup', '.photo__img', '.photo__caption');
 popupWithImage.setEventListeners()
+const confirmPopup = new PopupDeleteCard('#delete-popup');
+confirmPopup.setEventListeners()
 
+//Создаем экземпляр класса FormValidator для каждой формы и включить валидацию
+const validateUserForm = new FormValidator(formsData, formElement)
+validateUserForm.enableValidation()
+const validateCreateForm = new FormValidator(formsData, createFormElement)
+validateCreateForm.enableValidation()
+const validateAvatarForm = new FormValidator(formsData, avatarForm);
+validateAvatarForm.enableValidation()
 //Создаем экземпляр класса Api
-export const api = new Api(apiOptions);
-
-//Создаем экземпляр класса Section для карточек
-const cardList = new Section(
-  {
-    renderer: (cardItem) => {
-      const card = new Card(cardItem, api, {
-        cardTemplateSelector: '#card',
-        handleCardClick: (name,src) => {
-          popupWithImage.open(name,src);
-        },
-        handleConfirmDelete: () => {
-          const confirmPopup = new popupDeleteCard(
-            '#delete-popup',
-            api.deletePhoto(cardItem._id),
-            cardItem
-          );
-          confirmPopup.setEventListeners()
-          confirmPopup.open();
-        },
-      });
-      api.getUserInfo()
-        .then((data) => {
-          const cardElement = card.createCard(data);
-          cardList.addItem(cardElement,'append');
-        })
-        .catch((err) => console.log(`Что-то пошло не так: ${err}`))
-    },
-  },
-  '.cards'
-);
-//Отрисоваем карточки
-cardList.renderItems(api.getInitialCards());
-
+const api = new Api(apiOptions);
 
 //Создаем экземпляр класса UserInfo
 const userInfo = new UserInfo({
@@ -68,24 +44,69 @@ const userInfo = new UserInfo({
 });
 
 
-api.getUserInfo().then((data) => {
-  userInfo.setUserInfo(data);
-})
-  .catch((err) => console.log(`Что-то пошло не так: ${err}`));
+const generateCard = (data) => {
+  const newCard = new Card(
+    data,
+    api,
+    userInfo._id,
+    {
+      cardTemplateSelector: '#card',
+      handleCardClick: (name,src) => {
+        popupWithImage.open(name,src);
+      },
+      handleConfirmDelete: () => {
+        confirmPopup.open();
+        confirmPopup.onClickSubmit(() => {
+          api
+            .deleteCard(newCard._id)
+            .then(() => {
+              newCard._handleCardDelete();
+              confirmPopup.close();
+            })
+            .catch((error) => console.log(`Ошибка ${error}`));
+        });
+      },
+    }
+  );
+
+  return newCard.createCard(data);
+};
+
+
+//Создаем экземпляр класса Section для карточек
+const cardList = new Section(
+  {
+    renderer: (cardItem) => {
+      cardList.addItem(generateCard(cardItem),'append')
+    },
+  },
+  '.cards'
+);
+//Отрисоваем карточки
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    cardList.renderItems(initialCards);
+  })
+  .catch(() => {
+    (error) => console.log(error);
+  });
+
 
 //Создаем экземпляр класса PopupWithForm для userPopup
-const popupWithUserForm = new PopupWithForm('#user-popup', {
+const popupWithUserForm = new PopupWithForm('#user-popup', 
+{
   handleFormSubmit: () => {
     const inputValues = popupWithUserForm.getInputValues();
     popupWithUserForm.renderLoading(true);
     api.updateUserInfo(inputValues)
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupWithUserForm.close();
       })
       .catch((err) => console.log(`Что-то пошло не так: ${err}`))
       .finally(() => {
         popupWithUserForm.renderLoading(false);
-        popupWithUserForm.close();
       });
   },
   setInputValues: () => {
@@ -110,31 +131,12 @@ const popupCreateCardForm = new PopupWithForm('#create-popup', {
     const inputValues = popupCreateCardForm.getInputValues();
     api.addNewCard(inputValues)
       .then((data) => {
-        const newCard = new Card(data, api, {
-          cardTemplateSelector: '#card',
-          handleCardClick: (name,src) => {
-            popupWithImage.open(name,src);
-          },
-          handleConfirmDelete: () => {
-            const confirmPopup = new popupDeleteCard(
-              '#delete-popup',
-              api.deletePhoto(data._id),
-              data
-            );
-            confirmPopup.setEventListeners()
-            confirmPopup.open();
-          },
-        });
-        api.getUserInfo()
-          .then((data) => {
-            const newCardElement = newCard.createCard(data);
-            cardList.addItem(newCardElement,'append');
-          })
-          .catch((err) => console.log(`Что-то пошло не так: ${err}`))
+        cardList.addItem(generateCard(data),'prepend')
+        popupCreateCardForm.close();
       })
+      .catch((err) => console.log(`Что-то пошло не так при создании карточки: ${err}`))
       .finally(() => {
         popupCreateCardForm.renderLoading(false);
-        popupCreateCardForm.close();
       });
   },
   setInputValues: () => {
@@ -159,11 +161,11 @@ const popupWithAvatarForm = new PopupWithForm(
       api.updateUserAvatar(inputValues)
         .then((data) => {
           userInfo.setUserAvatar(data);
+          popupWithAvatarForm.close();
         })
-        .catch((err) => console.log(`Что-то пошло не так: ${err}`))
+        .catch((err) => console.log(`Что-то пошло не так при обновлении аватара: ${err}`))
         .finally(() => {
           popupWithAvatarForm.renderLoading(false);
-          popupWithAvatarForm.close();
         });
     },
     setInputValues: () => {
@@ -179,10 +181,3 @@ editAvatarBtn.addEventListener('click', () => {
   validateAvatarForm.setButtonState(false)
 });
 
-//Создаем экземпляр класса FormValidator для каждой формы и включить валидацию
-const validateUserForm = new FormValidator(formsData, formElement)
-validateUserForm.enableValidation()
-const validateCreateForm = new FormValidator(formsData, createFormElement)
-validateCreateForm.enableValidation()
-const validateAvatarForm = new FormValidator(formsData, avatarForm);
-validateAvatarForm.enableValidation()

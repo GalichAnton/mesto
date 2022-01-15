@@ -14,8 +14,7 @@ export class Api {
       method: 'GET',
       headers: this._headers 
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`Ошибочка ${err}`));
+      .then(this._handleResponse)
   }
 
   getInitialCards() {
@@ -23,8 +22,8 @@ export class Api {
       method: 'GET',
       headers: this._headers 
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`Ошибочка ${err}`))
+      .then(this._handleResponse)
+      .catch((e)=>console.log(e))
   }
 
   updateUserInfo(newUserInfo) {
@@ -36,8 +35,7 @@ export class Api {
         about: newUserInfo.about,
       }),
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`Всё сломалось, ищем ошибку: ${err}`));
+      .then(this._handleResponse)
   }
 
   updateUserAvatar(avatar) {
@@ -46,7 +44,7 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({avatar:avatar.url})
     })
-    .then(res => this._handleResponse(res));
+    .then(this._handleResponse);
   } 
 
   addNewCard(newCard) {
@@ -58,8 +56,7 @@ export class Api {
       }),
       headers: this._headers,
     })
-      .then((res) => this._handleResponse(res))
-      .catch((err) => console.log(`Ничего не работает: ${err}`));
+      .then(this._handleResponse)
   }
 
   //Отобразить количество лайков
@@ -68,7 +65,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers,
     })
-    .then(res => this._handleResponse(res));
+    .then(this._handleResponse);
   }
 
   dislikeCard(id) {
@@ -76,16 +73,15 @@ export class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(res => this._handleResponse(res));
+    .then(this._handleResponse);
   }
 
-  deletePhoto(id) {
+  deleteCard(id) {
     return fetch(`${this._url}cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(res => this._handleResponse(res));
+    .then(this._handleResponse);
   }
-
 }
 

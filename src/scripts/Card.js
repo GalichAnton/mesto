@@ -1,5 +1,5 @@
 export class Card {
-  constructor(data, api, { cardTemplateSelector, handleCardClick, handleConfirmDelete }) {
+  constructor(data, api, userId, { cardTemplateSelector, handleCardClick, handleConfirmDelete }) {
     this._api = api
     this._cardSelector = cardTemplateSelector
     this._handleCardClick = handleCardClick;
@@ -9,6 +9,7 @@ export class Card {
     this._id= data._id
     this._name = data.name
     this._src = data.link
+    this._userId = userId
   }
 
   //Добавляем разметку карточки
@@ -34,7 +35,7 @@ export class Card {
       '.card__counter'
     ).textContent = `${this._likes.length}`;
 
-    if(data._id === this._owner._id) {
+    if(this._userId === this._owner._id) {
       this._cardItem.querySelector('.card__delete').style.display = 'block'
     }
     
@@ -61,7 +62,7 @@ export class Card {
 
     this._cardItem
       .querySelector('.card__photo')
-      .addEventListener('click', (e) => {
+      .addEventListener('click', () => {
         this._handleCardClick(this._name, this._src);
       });
   }

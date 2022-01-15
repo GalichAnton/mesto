@@ -13,13 +13,10 @@ export default class Secion {
   }
 
   //Отрисовать элементы
-  renderItems(api) {
-    api.then((data) => {
-        data.forEach((item) => {
-          this._renderer(item);
-        });
-      })
-      .catch((err) => console.log(`Что-то пошло не так: ${err}`));
+  renderItems(items)  {
+    items.forEach(element => {
+      this._renderer(element);
+    });
   }
 }
 
