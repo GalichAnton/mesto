@@ -23,7 +23,6 @@ export class Api {
       headers: this._headers 
     })
       .then(this._handleResponse)
-      .catch((e)=>console.log(e))
   }
 
   updateUserInfo(newUserInfo) {

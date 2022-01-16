@@ -1,8 +1,8 @@
-# Yandex Practicum sprint №4
+# Yandex Practicum sprint №9
 ## _Educational project **"Mesto"**_
 
 ### Layout of an adaptive single-page website, using the BEM methodology
-- [Mesto](https://galichanton.github.io/mesto/index.html)
+- [Mesto](https://galichanton.github.io/mesto)
 ### Tech
 the following technologies were used:
 
